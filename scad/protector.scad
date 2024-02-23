@@ -61,7 +61,10 @@ module protector()
 
         // Gap
         difference() {
-            move([-6,0,2]) cuboid([14,7,10]);
+            union() {
+                move([-6,0,2]) cuboid([14,7,10]);
+                move([-8,0,2]) cuboid([14,7.5,10]);
+            }
             move([-2,4.5,2]) cyl(h=12, d=3);
             move([-2,-4.5,2]) cyl(h=12, d=3);
         }
@@ -80,8 +83,17 @@ module protector()
         move([15,0,4-1]) cyl(h=1,d2=4, d1=5);
 
         // Trim the front edge
-        move([-12,2,0]) zrot(45) cuboid([5,5,5]);
-        move([-12,-2,0]) zrot(45) cuboid([5,5,5]);
+        move([-12,2,0]) zrot(45) cuboid([6,6,5]);
+        move([-12,-2,0]) zrot(45) cuboid([6,6,5]);
+    }
+
+    difference() {
+        move([0,0,-1]) cyl(h=1, d=23, center=false);
+        move([0,0,-2]) cyl(h=3, d=21.5, center=false);
+
+        // Trim the front edge
+        move([-12,2,0]) zrot(45) cuboid([6,6,5]);
+        move([-12,-2,0]) zrot(45) cuboid([6,6,5]);
     }
 }
 
