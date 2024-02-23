@@ -94,8 +94,9 @@ module protector()
         // Trim the front edge
         move([-12,2,0]) zrot(45) cuboid([6,6,5]);
         move([-12,-2,0]) zrot(45) cuboid([6,6,5]);
+        move([-11,0,-1.01]) cuboid([20,28,2], chamfer=1);
     }
-}
+}   
 
 module render_protector(toPrint)
 {
