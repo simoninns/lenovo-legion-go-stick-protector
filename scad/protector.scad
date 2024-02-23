@@ -46,26 +46,43 @@ module protector()
     difference() {
         union() {
             move([0,0,4]) cyl(h=1, d1=16, d2=14, center=false);
-            move([0,0,2]) cyl(h=2, d1=17, d2=16, center=false);
-            move([0,0,1]) cyl(h=1, d=17, center=false);
+            move([0,0,2]) cyl(h=2, d1=18, d2=16, center=false);
+            move([0,0,1]) cyl(h=2, d2=17, d1=23, center=false);
+            move([0,0,0]) cyl(h=1, d=23, center=false);
 
             // Handle
-            move([6,0,4]) cuboid([20,10,2], chamfer=0.5);
+            move([9,0,4]) cuboid([20,10,2], chamfer=0.5);
+            hull() {
+                move([15,0,4]) cuboid([6,10,2], chamfer=0.5);
+                move([17,0,4]) cuboid([3,16,2], chamfer=0.5);
+                move([19,0,4]) cuboid([2,10,2], chamfer=0.5);
+            }
         }
 
         // Gap
         difference() {
-            move([-5,0,2]) cuboid([10,7,10]);
+            move([-6,0,2]) cuboid([14,7,10]);
             move([-2,4.5,2]) cyl(h=12, d=3);
             move([-2,-4.5,2]) cyl(h=12, d=3);
         }
 
+        // Hollow the centre
         move([0,0,-1]) cyl(h=8, d=7.25, center=false);
         move([0,0,-1]) cyl(h=4, d1=15, d2=14, center=false);
         move([0,0,2.99]) cyl(h=1, d1=14, d2=13, center=false);
-    }
 
-    
+        move([0,0,-.75]) cyl(h=2, d1=23, d2=19, center=false);
+        cyl(h=4, d=16, chamfer=1);
+
+        // Hole in handle
+        move([15,0,4]) cyl(h=4,d=4);
+        move([15,0,4+1]) cyl(h=1,d1=4, d2=5);
+        move([15,0,4-1]) cyl(h=1,d2=4, d1=5);
+
+        // Trim the front edge
+        move([-12,2,0]) zrot(45) cuboid([5,5,5]);
+        move([-12,-2,0]) zrot(45) cuboid([5,5,5]);
+    }
 }
 
 module render_protector(toPrint)
