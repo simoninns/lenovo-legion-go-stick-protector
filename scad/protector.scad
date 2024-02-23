@@ -26,28 +26,52 @@ include <BOSL/constants.scad>
 use <BOSL/transforms.scad>
 use <BOSL/shapes.scad>
 
-module stick_mockup()
+module render_stick_mockup(toPrint)
 {
-    
+    if (!toPrint) {
+        move([0,0,1]) {
+            cyl(h=4, d=7, center=false);
 
-    move([0,0,1]) {
-        cyl(h=4, d=7, center=false);
+            move([0,0,4]) cyl(h=1, d1=14, d2=16, center=false);
+            move([0,0,5]) cyl(h=1.5, d=16, center=false);
+            move([0,0,6.5]) cyl(h=1, d1=16, d2=14, center=false);
+        }
 
-        move([0,0,4]) cyl(h=1, d1=14, d2=16, center=false);
-        move([0,0,5]) cyl(h=1.5, d=16, center=false);
-        move([0,0,6.5]) cyl(h=1, d1=16, d2=14, center=false);
+        move([0,0,0]) cyl(h=1, d1=20, d2=18, center=false);
     }
-
-    move([0,0,0]) cyl(h=1, d1=20, d2=18, center=false);
 }
 
 module protector()
 {
+    difference() {
+        union() {
+            move([0,0,4]) cyl(h=1, d1=16, d2=14, center=false);
+            move([0,0,2]) cyl(h=2, d1=17, d2=16, center=false);
+            move([0,0,1]) cyl(h=1, d=17, center=false);
+
+            // Handle
+            move([6,0,4]) cuboid([20,10,2], chamfer=0.5);
+        }
+
+        // Gap
+        difference() {
+            move([-5,0,2]) cuboid([10,7,10]);
+            move([-2,4.5,2]) cyl(h=12, d=3);
+            move([-2,-4.5,2]) cyl(h=12, d=3);
+        }
+
+        move([0,0,-1]) cyl(h=8, d=7.25, center=false);
+        move([0,0,-1]) cyl(h=4, d1=15, d2=14, center=false);
+        move([0,0,2.99]) cyl(h=1, d1=14, d2=13, center=false);
+    }
+
     
 }
 
 module render_protector(toPrint)
 {
-    stick_mockup();
-    //protector();
+    if (!toPrint) protector();
+    else {
+        move([0,0,5]) xrot(180) protector();
+    }
 }

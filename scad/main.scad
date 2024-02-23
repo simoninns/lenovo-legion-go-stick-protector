@@ -37,14 +37,17 @@ for_printing = "Display"; // [Display, Printing]
 
 /* [Printable Parts] */
 display_protector = "Yes"; // [Yes, No]
+display_stick_mockup = "Yes"; // [Yes, No]
 
 module main()
 {
     toPrint = (for_printing == "Printing") ? true:false;
 
     d_protector = (display_protector == "Yes") ? true:false;
+    d_stick_mockup = (display_stick_mockup == "Yes") ? true:false;
 
     if (d_protector) render_protector(toPrint);
+    if (d_stick_mockup) render_stick_mockup(toPrint);
 }
 
 main();
